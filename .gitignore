@@ -31,3 +31,18 @@ build/
 
 ### VS Code ###
 .vscode/
+./mvnw
+./mvnw.cmd
+.mvn/
+!**/src/main/**/.mvn/
+!**/src/test/**/.mvn/
+.DS_Store
+*.log
+*.jks
+*.keystore
+hs_err_pid*.log
+spring.log
+logs/
+*.war
+*.jar       
+./gitattributes
