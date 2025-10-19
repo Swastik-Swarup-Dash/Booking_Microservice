@@ -10,11 +10,10 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-public class Ticket {
+public class Theatre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String eventName;
-    private String userName;
-    private int seatNumber;
+    private String name;
+    private String location;
 }

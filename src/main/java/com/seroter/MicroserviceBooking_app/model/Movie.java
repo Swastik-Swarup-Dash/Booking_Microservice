@@ -7,14 +7,18 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Setter
 @Getter
 @Entity
-public class Ticket {
+public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String eventName;
-    private String userName;
-    private int seatNumber;
+    private String title;
+    private String description;
+    private LocalDate releaseDate;
+
+
 }
