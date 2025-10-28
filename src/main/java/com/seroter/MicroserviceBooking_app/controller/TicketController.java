@@ -1,8 +1,7 @@
 package com.seroter.MicroserviceBooking_app.controller;
 
 import com.seroter.MicroserviceBooking_app.model.Ticket;
-import com.seroter.MicroserviceBooking_app.service.TicketRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.seroter.MicroserviceBooking_app.repository.jpa.TicketRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;

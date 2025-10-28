@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableJpaRepositories(basePackages = "com.seroter.MicroserviceBooking_app.service")
+@EnableJpaRepositories(basePackages = "com.seroter.MicroserviceBooking_app.repository.jpa")
 @EntityScan(basePackages = "com.seroter.MicroserviceBooking_app.model")
 
 @SpringBootApplication

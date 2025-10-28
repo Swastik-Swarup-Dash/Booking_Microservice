@@ -1,4 +1,4 @@
-package com.seroter.MicroserviceBooking_app.service;
+package com.seroter.MicroserviceBooking_app.repository.jpa;
 
 import com.seroter.MicroserviceBooking_app.model.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
