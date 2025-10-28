@@ -1,10 +1,10 @@
 # BookMyShow-Style Booking Microservice
 
-A Spring Boot microservice implementing BookMyShow's polyglot persistence architecture with PostgreSQL, MongoDB, and Redis.
+A Spring Boot microservice implementing polyglot persistence architecture with PostgreSQL, MongoDB, and Redis.
 
 ## 🏗️ Architecture
 
-This microservice follows BookMyShow's database strategy:
+This microservice follows the following database strategy:
 - **PostgreSQL** - Transactional data (bookings, users, payments)
 - **MongoDB** - Catalog data (movies, theaters, flexible schemas)
 - **Redis** - Caching and real-time seat availability
