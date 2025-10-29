@@ -1,6 +1,5 @@
-HELP.md
 target/
-.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
@@ -31,18 +30,11 @@ build/
 
 ### VS Code ###
 .vscode/
-./mvnw
-./mvnw.cmd
+
+# Maven Wrapper
+mvnw
+mvnw.cmd
 .mvn/
-!**/src/main/**/.mvn/
-!**/src/test/**/.mvn/
-.DS_Store
-*.log
-*.jks
-*.keystore
-hs_err_pid*.log
-spring.log
-logs/
-*.war
-*.jar       
-./gitattributes
+
+# Architecture diagrams
+architecture-diagram.xml
