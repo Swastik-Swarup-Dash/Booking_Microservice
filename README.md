@@ -1,4 +1,4 @@
-# BookMyShow-Style Booking Microservice
+# Booking Microservice
 
 A Spring Boot microservice implementing polyglot persistence architecture with PostgreSQL, MongoDB, and Redis.
 
