@@ -101,4 +101,30 @@ public class PaymentService {
         
         return refundedPayment;
     }
+
+    // Add these methods to existing PaymentService:
+
+    public Payment confirmPayment(String paymentIntentId) {
+        Payment payment = paymentRepository.findByPaymentIntentId(paymentIntentId)
+                .orElseThrow(() -> new RuntimeException("Payment not found"));
+
+        // Simulate payment confirmation
+        boolean success = simulatePaymentConfirmation();
+
+        if (success) {
+            payment.setStatus(PaymentStatus.COMPLETED);
+            payment.setTransactionId("txn_" + UUID.randomUUID().toString());
+            eventPublisher.publishPaymentCompleted(payment);
+        } else {
+            payment.setStatus(PaymentStatus.FAILED);
+            eventPublisher.publishPaymentFailed(payment.getBooking().getId(), "Payment declined");
+        }
+
+        return paymentRepository.save(payment);
+    }
+
+    private boolean simulatePaymentConfirmation() {
+        return Math.random() > 0.05; // 95% success rate
+    }
+
 }

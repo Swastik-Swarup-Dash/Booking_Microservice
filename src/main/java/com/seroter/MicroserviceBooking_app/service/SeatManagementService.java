@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 public class SeatManagementService {
     
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private static RedisTemplate<String, Object> redisTemplate;
     
     private static final String SEAT_LOCK_PREFIX = "seat_lock:";
     private static final String SEAT_AVAILABILITY_PREFIX = "seat_availability:";
     private static final int LOCK_DURATION_MINUTES = 15;
     
-    public SeatLock lockSeats(Long showId, List<String> seatNumbers) {
+    public static SeatLock lockSeats(Long showId, List<String> seatNumbers) {
         String availabilityKey = SEAT_AVAILABILITY_PREFIX + showId;
         
         // Check if seats are available
@@ -53,7 +53,7 @@ public class SeatManagementService {
         return SeatLock.success(showId, seatNumbers, lockId);
     }
     
-    public void releaseSeatLock(Long showId, List<String> seatNumbers, String lockId) {
+    public static void releaseSeatLock(Long showId, List<String> seatNumbers, String lockId) {
         String availabilityKey = SEAT_AVAILABILITY_PREFIX + showId;
         
         for (String seatNumber : seatNumbers) {
@@ -70,7 +70,7 @@ public class SeatManagementService {
         redisTemplate.opsForSet().add(availabilityKey, seatNumbers.toArray());
     }
     
-    public void confirmSeatBooking(Long showId, List<String> seatNumbers) {
+    public static void confirmSeatBooking(Long showId, List<String> seatNumbers) {
         // Remove seats from availability permanently
         String availabilityKey = SEAT_AVAILABILITY_PREFIX + showId;
         redisTemplate.opsForSet().remove(availabilityKey, seatNumbers.toArray());
@@ -91,4 +91,32 @@ public class SeatManagementService {
         String availabilityKey = SEAT_AVAILABILITY_PREFIX + showId;
         redisTemplate.opsForSet().add(availabilityKey, allSeats.toArray());
     }
+
+    // Add these methods to existing SeatManagementService:
+
+    public List<String> getLockedSeats(Long showId) {
+        String lockPattern = SEAT_LOCK_PREFIX + showId + ":*";
+        Set<String> lockKeys = redisTemplate.keys(lockPattern);
+
+        return lockKeys.stream()
+                .map(key -> key.substring(key.lastIndexOf(":") + 1))
+                .toList();
+    }
+
+    public boolean isSeatLocked(Long showId, String seatNumber) {
+        String lockKey = SEAT_LOCK_PREFIX + showId + ":" + seatNumber;
+        return redisTemplate.hasKey(lockKey);
+    }
+
+    public void extendSeatLock(Long showId, List<String> seatNumbers, String lockId) {
+        for (String seatNumber : seatNumbers) {
+            String lockKey = SEAT_LOCK_PREFIX + showId + ":" + seatNumber;
+            String currentLockId = (String) redisTemplate.opsForValue().get(lockKey);
+
+            if (lockId.equals(currentLockId)) {
+                redisTemplate.expire(lockKey, Duration.ofMinutes(LOCK_DURATION_MINUTES));
+            }
+        }
+    }
+
 }
