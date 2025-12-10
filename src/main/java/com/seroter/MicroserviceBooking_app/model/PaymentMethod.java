@@ -5,6 +5,5 @@ public enum PaymentMethod {
     DEBIT_CARD,
     UPI,
     NET_BANKING,
-    WALLET,
-    CASH
+    WALLET
 }

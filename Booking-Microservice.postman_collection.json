@@ -1,0 +1,101 @@
+{
+  "info": {
+    "name": "Booking Microservice API",
+    "description": "Complete API collection for testing the Booking Microservice",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Movies API",
+      "item": [
+        {
+          "name": "Get All Movies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/movies",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies"]
+            }
+          }
+        },
+        {
+          "name": "Add New Movie",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Avengers: Endgame\",\n  \"description\": \"The epic conclusion to the Infinity Saga\",\n  \"genre\": \"Action\",\n  \"duration\": 181,\n  \"language\": \"English\",\n  \"releaseDate\": \"2019-04-26\",\n  \"posterUrl\": \"https://example.com/avengers-endgame.jpg\",\n  \"rating\": 8.4,\n  \"cast\": [\"Robert Downey Jr.\", \"Chris Evans\", \"Mark Ruffalo\", \"Chris Hemsworth\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/movies",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies"]
+            }
+          }
+        },
+        {
+          "name": "Get Movies by Genre",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/movies/genre/Action",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies", "genre", "Action"]
+            }
+          }
+        },
+        {
+          "name": "Search Movies by Title",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/movies/search?title=Avengers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies", "search"],
+              "query": [
+                {
+                  "key": "title",
+                  "value": "Avengers"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Application Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "health"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

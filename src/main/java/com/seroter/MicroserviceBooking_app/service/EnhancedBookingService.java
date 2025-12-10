@@ -24,7 +24,7 @@ public class EnhancedBookingService {
     public BookingResponse processCompleteBooking(BookingRequest request) {
         // Step 1: Validate and lock seats
         validateBookingRequest(request);
-        SeatLock seatLock = SeatManagementService.lockSeats(request.getShowId(), request.getSeatNumbers());
+        SeatLock seatLock = seatService.lockSeats(request.getShowId(), request.getSeatNumbers());
 
         if (!seatLock.isSuccessful()) {
             throw new RuntimeException("Seats unavailable: " + seatLock.getMessage());
@@ -72,7 +72,7 @@ public class EnhancedBookingService {
             bookingRepository.save(booking);
 
             // Permanently allocate seats
-            SeatManagementService.confirmSeatBooking(booking.getShow().getId(), booking.getSeatNumbers());
+            seatService.confirmSeatBooking(booking.getShow().getId(), booking.getSeatNumbers());
 
             eventPublisher.publishBookingConfirmed(booking);
             return mapToResponse(booking);
@@ -149,7 +149,7 @@ public class EnhancedBookingService {
     private void expireBooking(Booking booking) {
         booking.setStatus(BookingStatus.EXPIRED);
         bookingRepository.save(booking);
-        SeatManagementService.releaseSeatLock(booking.getShow().getId(), booking.getSeatNumbers(), "expired");
+        seatService.releaseSeatLock(booking.getShow().getId(), booking.getSeatNumbers(), "expired");
         eventPublisher.publishBookingExpired(booking);
     }
 

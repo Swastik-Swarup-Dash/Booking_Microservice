@@ -23,10 +23,10 @@ public class Seatcontroller {
         seatManagementService.initializeSeatsForShow(showId, seats);
         return ResponseEntity.ok("Seats initialized for show " + showId);
     }
-
+//
     @GetMapping("/{showId}/available")
-    public ResponseEntity<Set<Object>> getAvailableSeats(@PathVariable Long showId) {
-        Set<Object> availableSeats = seatManagementService.getAvailableSeats(showId);
+    public ResponseEntity<List<Object>> getAvailableSeats(@PathVariable Long showId) {
+        List<Object> availableSeats = seatManagementService.getAvailableSeats(showId);
         return ResponseEntity.ok(availableSeats);
     }
 }
